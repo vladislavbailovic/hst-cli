@@ -1,0 +1,4 @@
+#!/usr/bin/python
+
+from hst import hostfile
+print(hostfile.load())
