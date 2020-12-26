@@ -4,11 +4,11 @@ from datetime import datetime
 
 from hst import classify
 
-def find():
-    return "test/data/hosts"
+def find(fpath=None):
+    return fpath if fpath else "/etc/hosts"
 
-def load():
-    with open(find(), "r") as fp:
+def load(fpath=None):
+    with open(find(fpath), "r") as fp:
         rawlines = [line.rstrip() for line in fp.readlines() if line.rstrip()]
     return parse_lines(rawlines)
 
@@ -79,11 +79,11 @@ def uncomment(line):
         line
     ).strip()
 
-def format(lines, group_by='section'):
+def format(lines, group_by='section', decorate=True):
     content = []
     sections = set(classify.pluck(lines, group_by))
     for section in sections:
-        if section:
+        if section and decorate:
             content.append(f"\n# { section }")
         for entry in classify.filter(lines, group_by, section):
             content.append(format_entry(entry))

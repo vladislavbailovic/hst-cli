@@ -6,5 +6,5 @@ def add_options(parser):
     parser.set_defaults(func=main)
 
 
-def main(args):
+def main(entries, args):
     print(args)

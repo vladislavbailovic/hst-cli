@@ -6,8 +6,5 @@ def add_options(parser):
     parser.set_defaults(func=main)
 
 
-def main(args):
-    entries = hostfile.load()
-    print(hostfile.format(
-        classify.search(entries, args.search, args.key)
-    ))
+def main(entries, args):
+    return classify.search(entries, args.search, args.key)
