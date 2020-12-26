@@ -5,6 +5,10 @@ setuptools.setup(
     version = "0.0.1",
     description = "hst-cli is package and a command line tool for manipulating the hosts file",
     packages = setuptools.find_packages(),
-    scripts = [ "scripts/hst" ],
+    entry_points = {
+        "console_scripts": [
+            'hst = hst:cli.main'
+        ]
+    },
     python_requires = ">=3.8"
 )
