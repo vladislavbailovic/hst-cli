@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from hst.cli import add
+from hst.cli import add, search
 from hst import hostfile, classify
 
 
@@ -21,7 +21,7 @@ def main():
 
     add_options(subparsers.add_parser('ls', help='Lists entries'))
     add.add_options(subparsers.add_parser('add', help='Adds new entry'))
-    #search_parser = subparsers.add_parser('search', help='Searches the entries')
+    search.add_options(subparsers.add_parser('search', help='Searches entries'))
 
     options = parser.parse_args()
     options.func(options)
