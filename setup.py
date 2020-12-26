@@ -7,7 +7,7 @@ setuptools.setup(
     packages = setuptools.find_packages(),
     entry_points = {
         "console_scripts": [
-            'hst = hst:cli.main'
+            'hst = hst:hst_cli.main'
         ]
     },
     python_requires = ">=3.8"
