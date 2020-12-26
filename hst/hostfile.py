@@ -34,30 +34,33 @@ def parse_line(ip, line, section):
 
     entries = []
     for entry in process.split("\t"):
+        timestamp, note = parse_comment(comment)
         entries.append({
             "ip": ip,
             "domain": entry,
-            "data": parse_comment(comment),
+            "timestamp": timestamp,
+            "note": note,
             "section": section,
         })
     return entries
 
-def create_entry(ip, domain, data=None, section=None):
-    data = data if data else parse_comment("")
+def create_entry(ip, domain, timestamp=None, note=None, section=None):
     section = section if section else "default"
     return {
         "ip": ip,
         "domain": domain,
-        "data": data,
+        "timestamp": timestamp,
+        "note": note,
         "section": section,
     }
 
-def update_entry(entry, ip=None, domain=None, data=None, section=None):
+def update_entry(entry, ip=None, domain=None, timestamp=None, note=None, section=None):
     ip = ip if ip else entry.get("ip")
     domain = domain if domain else entry.get("domain")
-    data = data if data else entry.get("data")
+    timestamp = timestamp if timestamp else entry.get("timestamp")
+    note = note if note else entry.get("note")
     section = section if section else entry.get("section")
-    return create_entry(ip, domain, data, section)
+    return create_entry(ip, domain, timestamp, note, section)
 
 def parse_comment(comment):
     timestamp = ""
@@ -67,10 +70,7 @@ def parse_comment(comment):
         tsstr = tsre.group(1)
         timestamp = f"{ dateparse(tsstr) }"
     clean_comment = uncomment(comment.replace(f"[{ tsstr }]", ""))
-    return {
-        "timestamp": timestamp,
-        "comment": clean_comment
-    }
+    return timestamp, clean_comment
 
 def uncomment(line):
     return re.sub(
@@ -90,17 +90,17 @@ def format(lines, group_by='section', decorate=True, bare=False):
     return "\n".join(content)
 
 def format_entry(entry, bare=False):
-    comment = parse_data(entry.get("data", {}))
+    comment = format_comment(entry)
     if comment:
         comment = f"# { comment }" if not bare else ""
     return f"{ entry.get('ip') }\t{ entry.get('domain') } { comment }".strip()
 
 
-def parse_data(data):
-    timestamp = data.get("timestamp")
+def format_comment(entry):
+    timestamp = entry.get("timestamp")
     if timestamp:
         timestamp = f"[{ timestamp }]"
-    comment = data.get("comment", "")
+    comment = entry.get("note", "")
     if timestamp or comment:
-        return f"{ timestamp } { comment }".strip()
+        return f"{ timestamp } { comment if comment else '' }".strip()
     return ""

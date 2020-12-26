@@ -11,9 +11,10 @@ def test_added_entry_with_no_extra_data_does_not_add_comment():
 
 def test_added_entry_with_timestamp_adds_comment():
     entries = hostfile.load("test/data/hosts")
-    entry = hostfile.create_entry( 'xx.xx.xx.xx', "test.test", { "timestamp": "2020-12-12" } )
+    entry = hostfile.create_entry( 'xx.xx.xx.xx', "test.test", "2020-12-12" )
     entries.append(entry)
     out = hostfile.format(entries)
+    print(out)
     assert None != re.search(r"^xx.xx.xx.xx\stest.test # \[2020-12-12\]$", out, re.MULTILINE)
 
 
