@@ -2,8 +2,10 @@ import re
 from dateutil.parser import parse as dateparse
 from datetime import datetime
 
+from hst import classify
+
 def find():
-    return "hosts"
+    return "test/data/hosts"
 
 def load():
     with open(find(), "r") as fp:
@@ -60,19 +62,19 @@ def uncomment(line):
         line
     ).strip()
 
-def write(lines):
+def format(lines):
     content = []
-    sections = set([ item.get("section") for item in lines ])
+    sections = set(classify.pluck(lines, "section"))
     for section in sections:
         content.append(f"\n# { section }")
-        for entry in [ entry for entry in lines if entry.get("section") == section ]:
+        for entry in classify.filter(lines, "section", section):
             comment = parse_data(entry.get("data"))
             if comment:
                 comment = f"# { comment }"
             content.append(
                 f"{ entry.get('ip') }\t{ entry.get('domain') } { comment }"
             )
-    print("\n".join(content))
+    return "\n".join(content)
 
 def parse_data(data):
     timestamp = data.get("timestamp")

@@ -1,0 +1,66 @@
+127.0.0.1	localhost # [2018-02-12] installed with system
+127.0.1.1	ve-legion
+::1 ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+# tmp
+230.32.251.91 sites.client1.test
+132.100.70.130 www.cvr.bio.client1.test
+
+# list of bastions
+165.140.193.126 virginia.bastion
+64.20.158.100 oregon.bastion
+119.209.42.148 canada.bastion
+168.43.65.107 canada-rrc.bastion
+107.152.134.96 london.bastion
+163.74.22.175 london-lincoln.bastion
+87.98.82.82 frankfurt.bastion
+5.42.134.205 sydney.bastion
+158.38.21.186 ohio-utdallas.bastion
+99.37.64.44 ohio-illinois.bastion
+228.225.65.97 ohio.bastion
+
+# other boxes
+104.172.239.198 devbox
+93.4.16.84 bastion.main
+17.147.169.143 testblogs
+163.239.129.188 bastionmanager
+
+114.18.227.15 client2.test wordpress.client2.test
+135.40.175.120 digital-scholarship.wordpress.client2.test
+187.129.121.175 periodico-espanol.wordpress.client2.test
+82.93.2.50 bbw-1920s.wordpress.client2.test
+219.191.152.254 godskingslovers.wordpress.client2.test
+161.251.150.34 artsofexchange.wordpress.client2.test
+54.57.51.242 sitetemplate2019.wordpress.client2.test
+205.35.134.39 olshanskylab.wordpress.client2.test
+29.93.170.188 client2globa.testcationblog.wordpress.client2.test
+115.203.143.21 pvs.wordpress.client2.test
+
+
+
+127.0.0.4 multidb.test #install
+127.0.0.5 multiwp.test #install
+127.0.0.6 singledb.test #install
+127.0.0.7 singlewp.test #install
+127.0.0.8 testblogsdb.test #install
+127.0.0.9 testblogswp.test #install
+
+127.0.0.10 seedsdb.test #install
+127.0.0.11 seedswp.test #install
+127.0.0.12 upgrade53db.test #install
+127.0.0.13 upgrade53wp.test #install
+127.0.0.14 haxxdb.test #install
+127.0.0.15 haxxwp.test #install
+
+
+
+
+## Local by Flywheel - Start ##
+::1 one.local #Local Site
+127.0.0.1 one.local #Local Site
+::1 www.one.local #Local Site
+127.0.0.1 www.one.local #Local Site
+## Local by Flywheel - End ##
+
