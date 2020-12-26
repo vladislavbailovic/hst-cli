@@ -10,7 +10,7 @@ def list_entries(args):
 
 
 def add_options(parser):
-    parser.add_argument('-g', '--group', help='Group by')
+    parser.add_argument('-g', '--group', help='Group by', default='section')
     parser.set_defaults(func=list_entries)
 
 
