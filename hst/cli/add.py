@@ -1,3 +1,5 @@
+from hst import hostfile
+
 def add_options(parser):
     parser.add_argument('ippos', metavar='<IP>', help='IP to add', nargs='?')
     parser.add_argument('-i', '--ip', help='IP to add', nargs='?')
@@ -7,4 +9,16 @@ def add_options(parser):
 
 
 def main(entries, args):
-    print(args)
+    ip = args.ippos or args.ip
+    if not ip:
+        return entries
+
+    domain = args.domainpos or args.domain
+    if not domain:
+        return entries
+
+    data = entries[:]
+    data.append(
+        hostfile.create_entry(ip, domain)
+    )
+    return data
