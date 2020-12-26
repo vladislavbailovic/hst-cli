@@ -79,20 +79,20 @@ def uncomment(line):
         line
     ).strip()
 
-def format(lines, group_by='section', decorate=True):
+def format(lines, group_by='section', decorate=True, bare=False):
     content = []
     sections = set(classify.pluck(lines, group_by))
     for section in sections:
         if section and decorate:
             content.append(f"\n# { section }")
         for entry in classify.filter(lines, group_by, section):
-            content.append(format_entry(entry))
+            content.append(format_entry(entry, bare))
     return "\n".join(content)
 
-def format_entry(entry):
+def format_entry(entry, bare=False):
     comment = parse_data(entry.get("data", {}))
     if comment:
-        comment = f"# { comment }"
+        comment = f"# { comment }" if not bare else ""
     return f"{ entry.get('ip') }\t{ entry.get('domain') } { comment }".strip()
 
 

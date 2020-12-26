@@ -12,6 +12,7 @@ def add_options(parser):
     parser.add_argument('-f', '--file', help='Input file')
     parser.add_argument('-g', '--group', help='Group by', default='section')
     parser.add_argument('-n', '--no-decorate', help='Do not decorate', action='store_true')
+    parser.add_argument('-b', '--bare', help='Strip comments', action='store_true')
     parser.set_defaults(func=list_entries)
 
 
@@ -29,7 +30,8 @@ def main():
     print(hostfile.format(
         options.func(entries, options),
         options.group,
-        not options.no_decorate
+        not options.no_decorate,
+        options.bare
     ))
 
 
