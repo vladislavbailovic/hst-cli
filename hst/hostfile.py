@@ -42,6 +42,23 @@ def parse_line(ip, line, section):
         })
     return entries
 
+def create_entry(ip, domain, data=None, section=None):
+    data = data if data else parse_comment("")
+    section = section if section else "default"
+    return {
+        "ip": ip,
+        "domain": domain,
+        "data": data,
+        "section": section,
+    }
+
+def update_entry(entry, ip=None, domain=None, data=None, section=None):
+    ip = ip if ip else entry.get("ip")
+    domain = domain if domain else entry.get("domain")
+    data = data if data else entry.get("data")
+    section = section if section else entry.get("section")
+    return create_entry(ip, domain, data, section)
+
 def parse_comment(comment):
     timestamp = ""
     tsstr = ""
@@ -68,16 +85,21 @@ def format(lines):
     for section in sections:
         content.append(f"\n# { section }")
         for entry in classify.filter(lines, "section", section):
-            comment = parse_data(entry.get("data"))
-            if comment:
-                comment = f"# { comment }"
-            content.append(
-                f"{ entry.get('ip') }\t{ entry.get('domain') } { comment }"
-            )
+            content.append(format_entry(entry))
     return "\n".join(content)
+
+def format_entry(entry):
+    comment = parse_data(entry.get("data", {}))
+    if comment:
+        comment = f"# { comment }"
+    return f"{ entry.get('ip') }\t{ entry.get('domain') } { comment }".strip()
+
 
 def parse_data(data):
     timestamp = data.get("timestamp")
     if timestamp:
         timestamp = f"[{ timestamp }]"
-    return f"{ timestamp } { data.get('comment') }".strip()
+    comment = data.get("comment", "")
+    if timestamp or comment:
+        return f"{ timestamp } { comment }".strip()
+    return ""
