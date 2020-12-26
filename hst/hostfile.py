@@ -1,6 +1,5 @@
 import re
 from dateutil.parser import parse as dateparse
-from datetime import datetime
 
 from hst import classify
 
