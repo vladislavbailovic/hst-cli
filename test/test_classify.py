@@ -2,7 +2,7 @@ from hst import classify
 
 def get_host_lines():
     from hst import hostfile
-    return hostfile.load()
+    return hostfile.load("test/data/hosts")
 
 
 def test_classification_returns_object():

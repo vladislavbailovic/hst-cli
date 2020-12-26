@@ -38,8 +38,3 @@ def test_parse_lines_should_separate_space_separated_domains():
     for line, expected in tests.items():
         domains = hostfile.parse_lines([line])
         assert expected == len(domains)
-
-# def test_load_file_returns_lines():
-#     lines = hostfile.load()
-#     hostfile.write(lines)
-#     assert False == True
