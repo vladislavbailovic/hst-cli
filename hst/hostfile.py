@@ -79,12 +79,12 @@ def uncomment(line):
         line
     ).strip()
 
-def format(lines):
+def format(lines, group_by='section'):
     content = []
-    sections = set(classify.pluck(lines, "section"))
+    sections = set(classify.pluck(lines, group_by))
     for section in sections:
         content.append(f"\n# { section }")
-        for entry in classify.filter(lines, "section", section):
+        for entry in classify.filter(lines, group_by, section):
             content.append(format_entry(entry))
     return "\n".join(content)
 
