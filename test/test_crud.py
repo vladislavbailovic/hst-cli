@@ -36,4 +36,7 @@ def test_update_entries():
     assert len(changed_lines) > 0
     assert len(original_lines) == len(changed_lines)
 
-
+def test_remove_section():
+    entries = hostfile.load()
+    nondefault = classify.without(entries, 'section', "default")
+    assert "default" not in classify.pluck(nondefault, 'section')

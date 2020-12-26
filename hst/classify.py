@@ -1,6 +1,9 @@
 def filter(lines, key, value):
     return [ item for item in lines if item.get(key) == value ]
 
+def without(lines, key, value):
+    return [ item for item in lines if item.get(key) != value ]
+
 def pluck(lines, what):
     return [ item.get(what) for item in lines ]
 
